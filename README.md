@@ -1,4 +1,4 @@
-# CƠ SỞ DỮ LIỆU “QUẢN LÝ KHÁM BỆNH”
+# CƠ SỞ DỮ LIỆU “QUẢN LÝ KHÁM CHƯA BỆNH”
 Bao gồm: quản lý bệnh nhân, bác sĩ, lịch hẹn, hóa đơn thanh toán, kho thuốc, đơn thuốc.
 
 ## Bảng: Bệnh nhân (BenhNhan)
