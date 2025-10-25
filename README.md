@@ -57,7 +57,7 @@ Chức năng: Quản lý danh mục thuốc, vật tư y tế và số lượng 
 
 Các thuộc tính:
 - `id` (Khóa chính): Mã định danh duy nhất cho mỗi loại thuốc hoặc vật tư.
-- `tenhang`: Tên thuốc hoặc sản phẩm y tế.
+- `ten`: Tên thuốc hoặc sản phẩm y tế.
 - `soluong`: Số lượng hiện có trong kho.
 - `hansudung`: Hạn sử dụng của thuốc (nếu có).
 
