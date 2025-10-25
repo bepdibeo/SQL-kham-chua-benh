@@ -35,8 +35,8 @@ Các thuộc tính:
 - `trangthai`: Tình trạng của lịch hẹn (ví dụ: “Đã đặt”, “Đã hủy”, “Đã hoàn thành”).
 
 Quan hệ:
-- -Một bệnh nhân- có thể có -nhiều lịch hẹn-.
-- -Một bác sĩ- cũng có thể có -nhiều lịch hẹn-.
+- Một bệnh nhân có thể có nhiều lịch hẹn.
+- Một bác sĩ- cũng có thể có nhiều lịch hẹn.
 
 ## Bảng: Hóa đơn (HoaDon)
 Chức năng: Quản lý các hóa đơn và giao dịch thanh toán cho dịch vụ khám chữa bệnh.
@@ -49,7 +49,7 @@ Các thuộc tính:
 - `trangthai`: Trạng thái thanh toán (ví dụ: “Đã thanh toán”, “Chưa thanh toán”).
 
 Quan hệ:
-- -Một bệnh nhân- có thể có -nhiều hóa đơn- trong hệ thống.
+- Một bệnh nhân có thể có nhiều hóa đơn trong hệ thống.
 
 ## Bảng: Kho thuốc (KhoThuoc)
 
@@ -73,8 +73,8 @@ Các thuộc tính:
 - `ghichu`: Ghi chú thêm (nếu có).
 
 Quan hệ:
-- -Một bệnh nhân- có thể có -nhiều đơn thuốc.-
-- -Một bác sĩ- có thể kê -nhiều đơn thuốc.-
+- Một bệnh nhân có thể có nhiều đơn thuốc.
+- Một bác sĩ có thể kê nhiều đơn thuốc.
 
 ## Bảng: Chi tiết đơn thuốc (ChiTietDonThuoc)
 
@@ -88,8 +88,8 @@ Các thuộc tính:
 - `lieudung`: Liều lượng hoặc hướng dẫn sử dụng.
 
 Quan hệ:
-- -Một đơn thuốc- có thể gồm -nhiều chi tiết thuốc.-
-- -Mỗi chi tiết thuốc- liên kết với -một thuốc cụ thể trong kho.-
+- Một đơn thuốc có thể gồm nhiều chi tiết thuốc.
+- Mỗi chi tiết thuốc liên kết với một thuốc cụ thể trong kho.
 
 ## Mối quan hệ giữa các bảng
 
