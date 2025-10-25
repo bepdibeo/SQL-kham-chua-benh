@@ -1,5 +1,5 @@
 # CƠ SỞ DỮ LIỆU “QUẢN LÝ KHÁM CHỮA BỆNH”
-Bao gồm: quản lý bệnh nhân, bác sĩ, lịch hẹn, hóa đơn thanh toán, kho thuốc, đơn thuốc.
+Bao gồm: bệnh nhân, bác sĩ, lịch hẹn, hóa đơn thanh toán, kho thuốc, đơn thuốc.
 
 ## Bảng: Bệnh nhân (BenhNhan)
 Chức năng: Lưu trữ thông tin cá nhân và bảo hiểm của từng bệnh nhân.
