@@ -23,17 +23,29 @@ INSERT INTO Khoa (TenKhoa, MoTa) VALUES
 (N'Sản khoa', N'Chăm sóc thai sản');
 
 
--- 2) Bảng DonViTinh
+--  BẢNG: LichKham
 
-CREATE TABLE DonViTinh (
-    MaDVT INT PRIMARY KEY IDENTITY(1,1),
-    TenDVT NVARCHAR(50) NOT NULL
+CREATE TABLE LichKham (
+    MaLich INT PRIMARY KEY IDENTITY(1,1),
+    MaBN INT NOT NULL REFERENCES BenhNhan(MaBN),
+    MaBS INT NOT NULL REFERENCES BacSi(MaBS),
+    NgayKham DATE NOT NULL,
+    GioKham NVARCHAR(10),
+    TrangThai NVARCHAR(50) DEFAULT N'Chờ khám',  -- Ví dụ: 'Chờ khám', 'Đã khám', 'Hủy'
+    GhiChu NVARCHAR(255)
 );
 
-
-INSERT INTO DonViTinh (TenDVT) VALUES
-(N'Viên'), (N'Gói'), (N'Lọ'), (N'Ml'), (N'Thuốc bôi'),
-(N'Ống'), (N'Tuýp'), (N'Viên nén'), (N'Túi'), (N'Hộp');
+INSERT INTO LichKham (MaBN, MaBS, NgayKham, GioKham, TrangThai, GhiChu) VALUES
+(1, 1, '2025-10-25', N'08:30', N'Chờ khám', N'Khám định kỳ 6 tháng'),
+(2, 3, '2025-10-26', N'09:15', N'Đã khám', N'Khám lại sau điều trị viêm họng'),
+(3, 2, '2025-10-26', N'10:00', N'Chờ khám', N'Khám tim mạch lần đầu'),
+(4, 4, '2025-10-27', N'14:00', N'Hủy', N'Bệnh nhân báo bận'),
+(5, 5, '2025-10-27', N'15:00', N'Chờ khám', N'Đặt lịch khám dạ dày'),
+(6, 6, '2025-10-28', N'08:45', N'Đã khám', N'Khám da liễu định kỳ'),
+(7, 7, '2025-10-29', N'09:30', N'Chờ khám', N'Khám huyết áp cao'),
+(8, 8, '2025-10-29', N'13:30', N'Chờ khám', N'Khám hô hấp'),
+(9, 9, '2025-10-30', N'10:30', N'Đã khám', N'Khám thần kinh do mất ngủ'),
+(10, 10, '2025-10-31', N'08:00', N'Chờ khám', N'Khám thai định kỳ tháng thứ 6');
 
 
 --3) Bảng Benh
@@ -131,24 +143,24 @@ INSERT INTO PhongKham (TenPhong, MaKhoa, ViTri) VALUES
 CREATE TABLE Thuoc (
     MaThuoc INT PRIMARY KEY IDENTITY(1,1),
     TenThuoc NVARCHAR(150) NOT NULL,
-    MaDVT INT NOT NULL REFERENCES DonViTinh(MaDVT),
+    DonViTinh NVARCHAR(50),
     DonGia DECIMAL(18,2) NOT NULL CHECK (DonGia >= 0),
     SoLuongTon INT NOT NULL CHECK (SoLuongTon >= 0),
     XuatXu NVARCHAR(100) NULL
 );
 
 
-INSERT INTO Thuoc (TenThuoc, MaDVT, DonGia, SoLuongTon, XuatXu) VALUES
-(N'Paracetamol 500mg', 1, 2000, 500, N'Việt Nam'),
-(N'Amoxicillin 500mg', 1, 5000, 200, N'Việt Nam'),
-(N'Omeprazole 20mg', 1, 8000, 150, N'Việt Nam'),
-(N'Ibuprofen 200mg', 1, 3000, 300, N'Việt Nam'),
-(N'Vitamin C 500mg', 1, 1500, 400, N'Việt Nam'),
-(N'Cetirizine 10mg', 1, 2500, 250, N'Việt Nam'),
-(N'Metformin 500mg', 1, 6000, 120, N'Việt Nam'),
-(N'Aspirin 81mg', 1, 1000, 350, N'Việt Nam'),
-(N'Omeprazole suspension', 3, 12000, 60, N'Nhật Bản'),
-(N'Amoxicillin syrup', 3, 7000, 80, N'Hàn Quốc');
+INSERT INTO Thuoc (TenThuoc, DonViTinh, DonGia, SoLuongTon, XuatXu) VALUES
+(N'Paracetamol 500mg', N'Viên', 2000, 500, N'Việt Nam'),
+(N'Amoxicillin 500mg', N'Viên', 5000, 200, N'Việt Nam'),
+(N'Omeprazole 20mg', N'Viên', 8000, 150, N'Việt Nam'),
+(N'Ibuprofen 200mg', N'Viên', 3000, 300, N'Việt Nam'),
+(N'Vitamin C 500mg', N'Viên', 1500, 400, N'Việt Nam'),
+(N'Cetirizine 10mg', N'Viên', 2500, 250, N'Việt Nam'),
+(N'Metformin 500mg', N'Viên', 6000, 120, N'Việt Nam'),
+(N'Aspirin 81mg', N'Viên', 1000, 350, N'Việt Nam'),
+(N'Omeprazole suspension', N'Chai', 12000, 60, N'Nhật Bản'),
+(N'Amoxicillin syrup', N'Chai', 7000, 80, N'Hàn Quốc');
 
 
 -- 8) Bảng BacSi
