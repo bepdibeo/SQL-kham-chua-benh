@@ -1,175 +1,373 @@
 CREATE DATABASE QuanLyKhamChuaBenh;
-
 USE QuanLyKhamChuaBenh;
 
--- BẢNG BỆNH NHÂN
-CREATE TABLE BenhNhan (
-    id INT PRIMARY KEY,
-    ten NVARCHAR(100) NOT NULL,
-    ngaysinh DATE NOT NULL,
-    gioitinh NVARCHAR(10) NOT NULL,
-    diachi NVARCHAR(255),
-    dienthoai NVARCHAR(20),
-    baohiem NVARCHAR(255)
+-- 1) Bảng Khoa
+
+CREATE TABLE Khoa (
+    MaKhoa INT PRIMARY KEY IDENTITY(1,1),
+    TenKhoa NVARCHAR(100) NOT NULL,
+    MoTa NVARCHAR(255) NULL
 );
 
-INSERT INTO BenhNhan (id, ten, ngaysinh, gioitinh, diachi, dienthoai, baohiem)
-VALUES
-(1, N'Nguyễn Văn A', '1985-02-14', N'Nam', N'123 Lý Thường Kiệt, Hà Nội', N'0901234567', N'BHYT12345'),
-(2, N'Trần Thị B', '1990-06-22', N'Nữ', N'45 Lê Lợi, Đà Nẵng', N'0909876543', N'BHYT54321'),
-(3, N'Lê Văn C', '1978-09-05', N'Nam', N'22 Nguyễn Huệ, Huế', N'0912345678', N'BHYT67890'),
-(4, N'Phạm Thị D', '1995-01-10', N'Nữ', N'12 Hai Bà Trưng, TP.HCM', N'0932123456', N'BHYT11111'),
-(5, N'Hoàng Văn E', '2000-03-30', N'Nam', N'78 Nguyễn Trãi, Hà Nội', N'0945566778', N'BHYT22222'),
-(6, N'Đỗ Thị F', '1988-12-01', N'Nữ', N'34 Điện Biên Phủ, Hải Phòng', N'0988889999', N'BHYT33333'),
-(7, N'Ngô Văn G', '1972-05-20', N'Nam', N'56 Pasteur, Cần Thơ', N'0911222333', N'BHYT44444'),
-(8, N'Bùi Thị H', '1993-11-18', N'Nữ', N'8 Trần Hưng Đạo, Quảng Ninh', N'0977334455', N'BHYT55555'),
-(9, N'Đặng Văn I', '1980-07-02', N'Nam', N'102 Nguyễn Văn Cừ, Bắc Ninh', N'0966112233', N'BHYT66666'),
-(10, N'Phan Thị K', '1987-04-25', N'Nữ', N'25 Võ Văn Kiệt, TP.HCM', N'0923456789', N'BHYT77777');
+
+INSERT INTO Khoa (TenKhoa, MoTa) VALUES
+(N'Nội tổng hợp', N'Khám và điều trị bệnh nội'),
+(N'Ngoại tổng hợp', N'Phẫu thuật tổng quát'),
+(N'Nhi', N'Khám và điều trị cho trẻ em'),
+(N'Tai Mũi Họng', N'Khám và điều trị tai mũi họng'),
+(N'Răng Hàm Mặt', N'Khám nha khoa'),
+(N'Da liễu', N'Điều trị bệnh da'),
+(N'Tim mạch', N'Điều trị bệnh tim'),
+(N'Hô hấp', N'Điều trị bệnh về phổi'),
+(N'Thần kinh', N'Khám thần kinh'),
+(N'Sản khoa', N'Chăm sóc thai sản');
 
 
--- BẢNG BÁC SĨ
+-- 2) Bảng DonViTinh
+
+CREATE TABLE DonViTinh (
+    MaDVT INT PRIMARY KEY IDENTITY(1,1),
+    TenDVT NVARCHAR(50) NOT NULL
+);
+
+
+INSERT INTO DonViTinh (TenDVT) VALUES
+(N'Viên'), (N'Gói'), (N'Lọ'), (N'Ml'), (N'Thuốc bôi'),
+(N'Ống'), (N'Tuýp'), (N'Viên nén'), (N'Túi'), (N'Hộp');
+
+
+--3) Bảng Benh
+
+CREATE TABLE Benh (
+    MaBenh INT PRIMARY KEY IDENTITY(1,1),
+    TenBenh NVARCHAR(150) NOT NULL,
+    MoTa NVARCHAR(255) NULL
+);
+
+
+INSERT INTO Benh (TenBenh, MoTa) VALUES
+(N'Cảm cúm', N'Nhiễm virus cúm thông thường'),
+(N'Sốt xuất huyết', N'Nhiễm virus dengue'),
+(N'Viêm phổi', N'Viêm phổi do vi khuẩn hoặc virus'),
+(N'Tiểu đường', N'Rối loạn chuyển hóa đường'),
+(N'Tăng huyết áp', N'Huyết áp cao mạn tính'),
+(N'Viêm họng', N'Viêm họng do virus/vi khuẩn'),
+(N'Sâu răng', N'Bệnh răng miệng'),
+(N'Viêm da', N'Bệnh lý ngoài da'),
+(N'Đau dạ dày', N'Vấn đề tiêu hóa, loét dạ dày'),
+(N'Rối loạn tiêu hóa', N'Buồn nôn, khó tiêu');
+
+
+-- 4) Bảng DichVu
+
+CREATE TABLE DichVu (
+    MaDV INT PRIMARY KEY IDENTITY(1,1),
+    TenDV NVARCHAR(150) NOT NULL,
+    DonGia DECIMAL(18,2) NOT NULL CHECK (DonGia >= 0)
+);
+
+
+INSERT INTO DichVu (TenDV, DonGia) VALUES
+(N'Khám bác sĩ chuyên khoa', 50000),
+(N'Khám tổng quát', 30000),
+(N'Siêu âm ổ bụng', 200000),
+(N'X-quang', 150000),
+(N'Xét nghiệm công thức máu', 120000),
+(N'Siêu âm tim', 300000),
+(N'Tiêm vaccine', 250000),
+(N'Khám tai mũi họng', 40000),
+(N'Khám nha khoa', 35000),
+(N'Điện tim ECG', 180000);
+
+
+-- 5) Bảng BaoHiemYTe
+
+CREATE TABLE BaoHiemYTe (
+    MaBHYT NVARCHAR(20) PRIMARY KEY,
+    TenBHYT NVARCHAR(150),
+    TyLeTra DECIMAL(5,2) CHECK (TyLeTra >= 0 AND TyLeTra <= 100),
+    NgayCap DATE NULL,
+    NgayHetHan DATE NULL
+);
+
+
+INSERT INTO BaoHiemYTe (MaBHYT, TenBHYT, TyLeTra, NgayCap, NgayHetHan) VALUES
+(N'BHYT001', N'BHYT - Công chức', 80.00, '2020-01-01', '2030-01-01'),
+(N'BHYT002', N'BHYT - Học sinh', 95.00, '2021-03-15', '2031-03-15'),
+(N'BHYT003', N'BHYT - Người cao tuổi', 90.00, '2019-06-01', '2029-06-01'),
+(N'BHYT004', N'BHYT - Thuộc hộ nghèo', 100.00, '2022-02-02', '2032-02-02'),
+(N'BHYT005', N'BHYT - Thuộc hộ cận nghèo', 95.00, '2020-05-05', '2030-05-05'),
+(N'BHYT006', N'BHYT - Doanh nghiệp', 80.00, '2021-07-07', '2031-07-07'),
+(N'BHYT007', N'BHYT - Khác', 70.00, '2018-08-08', '2028-08-08'),
+(N'BHYT008', N'BHYT - SV', 95.00, '2023-09-09', '2033-09-09'),
+(N'BHYT009', N'BHYT - CNVC', 85.00, '2017-10-10', '2027-10-10'),
+(N'BHYT010', N'BHYT - Tự nguyện', 50.00, '2024-01-01', '2029-01-01');
+
+
+-- 6) Bảng PhongKham
+
+CREATE TABLE PhongKham (
+    MaPhong INT PRIMARY KEY IDENTITY(1,1),
+    TenPhong NVARCHAR(100) NOT NULL,
+    MaKhoa INT NOT NULL REFERENCES Khoa(MaKhoa),
+    ViTri NVARCHAR(100) NULL
+);
+
+INSERT INTO PhongKham (TenPhong, MaKhoa, ViTri) VALUES
+(N'Phòng 101', 1, N'Tầng 1'),
+(N'Phòng 102', 1, N'Tầng 1'),
+(N'Phòng 201', 2, N'Tầng 2'),
+(N'Phòng 202', 3, N'Tầng 2'),
+(N'Phòng 301', 4, N'Tầng 3'),
+(N'Phòng 302', 5, N'Tầng 3'),
+(N'Phòng 401', 6, N'Tầng 4'),
+(N'Phòng 402', 7, N'Tầng 4'),
+(N'Phòng 501', 8, N'Tầng 5'),
+(N'Phòng 502', 9, N'Tầng 5');
+
+
+-- 7) Bảng Thuoc
+
+CREATE TABLE Thuoc (
+    MaThuoc INT PRIMARY KEY IDENTITY(1,1),
+    TenThuoc NVARCHAR(150) NOT NULL,
+    MaDVT INT NOT NULL REFERENCES DonViTinh(MaDVT),
+    DonGia DECIMAL(18,2) NOT NULL CHECK (DonGia >= 0),
+    SoLuongTon INT NOT NULL CHECK (SoLuongTon >= 0),
+    XuatXu NVARCHAR(100) NULL
+);
+
+
+INSERT INTO Thuoc (TenThuoc, MaDVT, DonGia, SoLuongTon, XuatXu) VALUES
+(N'Paracetamol 500mg', 1, 2000, 500, N'Việt Nam'),
+(N'Amoxicillin 500mg', 1, 5000, 200, N'Việt Nam'),
+(N'Omeprazole 20mg', 1, 8000, 150, N'Việt Nam'),
+(N'Ibuprofen 200mg', 1, 3000, 300, N'Việt Nam'),
+(N'Vitamin C 500mg', 1, 1500, 400, N'Việt Nam'),
+(N'Cetirizine 10mg', 1, 2500, 250, N'Việt Nam'),
+(N'Metformin 500mg', 1, 6000, 120, N'Việt Nam'),
+(N'Aspirin 81mg', 1, 1000, 350, N'Việt Nam'),
+(N'Omeprazole suspension', 3, 12000, 60, N'Nhật Bản'),
+(N'Amoxicillin syrup', 3, 7000, 80, N'Hàn Quốc');
+
+
+-- 8) Bảng BacSi
+
 CREATE TABLE BacSi (
-    id INT PRIMARY KEY,
-    ten NVARCHAR(100) NOT NULL,
-    chuyenkhoa NVARCHAR(100) NOT NULL
+    MaBS INT PRIMARY KEY IDENTITY(1,1),
+    HoTen NVARCHAR(100) NOT NULL,
+    GioiTinh NVARCHAR(10) NULL,
+    NgaySinh DATE NULL,
+    SDT NVARCHAR(15) NULL,
+    MaKhoa INT NOT NULL REFERENCES Khoa(MaKhoa)
 );
 
-INSERT INTO BacSi (id, ten, chuyenkhoa)
-VALUES
-(1, N'Nguyễn An', N'Nội tổng quát'),
-(2, N'Trần Bình', N'Nhi khoa'),
-(3, N'Lê Chi', N'Tim mạch'),
-(4, N'Phạm Dũng', N'Ngoại khoa'),
-(5, N'Hoàng Lan', N'Sản phụ khoa'),
-(6, N'Vũ Minh', N'Răng hàm mặt'),
-(7, N'Đỗ Ngọc', N'Mắt'),
-(8, N'Bùi Oanh', N'Tai mũi họng'),
-(9, N'Ngô Phúc', N'Da liễu'),
-(10, N'Đặng Quang', N'Thần kinh');
 
--- BẢNG LỊCH HẸN
-CREATE TABLE LichHen (
-    id INT PRIMARY KEY,
-    id_benhnhan INT NOT NULL,
-    id_bacsi INT NOT NULL,
-    ngayhen DATETIME NOT NULL,
-    trangthai NVARCHAR(50) NOT NULL,
-    FOREIGN KEY (id_benhnhan) REFERENCES BenhNhan(id),
-    FOREIGN KEY (id_bacsi) REFERENCES BacSi(id)
+INSERT INTO BacSi (HoTen, GioiTinh, NgaySinh, SDT, MaKhoa) VALUES
+(N'Nguyễn Văn An', N'Nam', '1980-02-12', '0912345678', 1),
+(N'Lê Thị Bình', N'Nữ', '1985-05-22', '0987654321', 2),
+(N'Trần Văn Cường', N'Nam', '1978-09-14', '0909998888', 3),
+(N'Phạm Thu Hằng', N'Nữ', '1990-03-11', '0977123456', 4),
+(N'Đỗ Quang Huy', N'Nam', '1983-12-01', '0911112233', 5),
+(N'Vũ Mai Lan', N'Nữ', '1986-10-10', '0966998877', 6),
+(N'Ngô Quốc Khánh', N'Nam', '1981-07-07', '0933557799', 7),
+(N'Trịnh Thu Hương', N'Nữ', '1992-01-19', '0901002003', 8),
+(N'Hoàng Minh Đức', N'Nam', '1989-06-06', '0988333222', 9),
+(N'Nguyễn Thị Hoa', N'Nữ', '1995-04-04', '0944222333', 10);
+
+
+-- 9) Bảng BenhNhan
+
+CREATE TABLE BenhNhan (
+    MaBN INT PRIMARY KEY IDENTITY(1,1),
+    HoTen NVARCHAR(100) NOT NULL,
+    GioiTinh NVARCHAR(10) NULL,
+    NgaySinh DATE NULL,
+    DiaChi NVARCHAR(255) NULL,
+    SDT NVARCHAR(15) NULL,
+    MaBHYT NVARCHAR(20) NULL REFERENCES BaoHiemYTe(MaBHYT)
 );
 
-INSERT INTO LichHen (id, id_benhnhan, id_bacsi, ngayhen, trangthai)
-VALUES
-(1, 1, 3, '2025-10-25 09:00', N'Đã đặt'),
-(2, 2, 2, '2025-10-25 10:00', N'Đã đặt'),
-(3, 3, 1, '2025-10-26 14:00', N'Đã xác nhận'),
-(4, 4, 5, '2025-10-26 15:00', N'Đã hoàn thành'),
-(5, 5, 4, '2025-10-27 09:30', N'Đã đặt'),
-(6, 6, 7, '2025-10-27 10:30', N'Hủy'),
-(7, 7, 6, '2025-10-28 08:30', N'Đã hoàn thành'),
-(8, 8, 8, '2025-10-28 13:30', N'Đã đặt'),
-(9, 9, 10, '2025-10-29 16:00', N'Đã xác nhận'),
-(10, 10, 9, '2025-10-30 09:00', N'Đã đặt');
+
+INSERT INTO BenhNhan (HoTen, GioiTinh, NgaySinh, DiaChi, SDT, MaBHYT) VALUES
+(N'Nguyễn Văn A', N'Nam', '1990-01-01', N'Hà Nội', '0901111111', NULL),
+(N'Trần Thị B', N'Nữ', '1988-02-14', N'Hải Phòng', '0911222333', 'BHYT001'),
+(N'Lê Văn C', N'Nam', '1975-03-05', N'Nghệ An', '0922333444', 'BHYT002'),
+(N'Phạm Thị D', N'Nữ', '1992-04-20', N'Hà Nam', '0933444555', NULL),
+(N'Vũ Văn E', N'Nam', '1983-05-25', N'Hà Nội', '0944555666', 'BHYT003'),
+(N'Hoàng Thị F', N'Nữ', '2000-06-10', N'Thái Bình', '0955666777', NULL),
+(N'Đinh Văn G', N'Nam', '1998-07-15', N'Bắc Ninh', '0966777888', 'BHYT004'),
+(N'Phan Thị H', N'Nữ', '1995-08-08', N'Hà Nội', '0977888999', NULL),
+(N'Ngô Văn I', N'Nam', '1993-09-09', N'Nam Định', '0988999000', 'BHYT005'),
+(N'Đỗ Thị K', N'Nữ', '1987-10-30', N'Hà Nội', '0999000111', NULL);
 
 
--- BẢNG HÓA ĐƠN
-CREATE TABLE HoaDon (
-    id INT PRIMARY KEY,
-    id_benhnhan INT NOT NULL,
-    sotien DECIMAL(10, 2) NOT NULL,
-    ngaylap DATE NOT NULL,
-    trangthai NVARCHAR(50) NOT NULL,
-    FOREIGN KEY (id_benhnhan) REFERENCES BenhNhan(id)
+-- 10) Bảng HoSoKham
+
+CREATE TABLE HoSoKham (
+    MaHS INT PRIMARY KEY IDENTITY(1,1),
+    MaBN INT NOT NULL REFERENCES BenhNhan(MaBN),
+    MaBS INT NOT NULL REFERENCES BacSi(MaBS),
+    MaPhong INT NULL REFERENCES PhongKham(MaPhong),
+    NgayKham DATETIME NOT NULL,
+    MaBenh INT NULL REFERENCES Benh(MaBenh),
+    TrieuChung NVARCHAR(255) NULL,
+    ChanDoan NVARCHAR(255) NULL,
+    GhiChu NVARCHAR(255) NULL
 );
 
-INSERT INTO HoaDon (id, id_benhnhan, sotien, ngaylap, trangthai)
-VALUES
-(1, 1, 500000, '2025-10-25', N'Đã thanh toán'),
-(2, 2, 300000, '2025-10-25', N'Chưa thanh toán'),
-(3, 3, 450000, '2025-10-26', N'Đã thanh toán'),
-(4, 4, 800000, '2025-10-26', N'Đã thanh toán'),
-(5, 5, 250000, '2025-10-27', N'Chưa thanh toán'),
-(6, 6, 600000, '2025-10-27', N'Đã thanh toán'),
-(7, 7, 700000, '2025-10-28', N'Đã thanh toán'),
-(8, 8, 400000, '2025-10-28', N'Chưa thanh toán'),
-(9, 9, 900000, '2025-10-29', N'Chưa thanh toán'),
-(10, 10, 550000, '2025-10-30', N'Đã thanh toán');
+
+INSERT INTO HoSoKham (MaBN, MaBS, MaPhong, NgayKham, MaBenh, TrieuChung, ChanDoan, GhiChu) VALUES
+(1, 1, 1, '2025-01-10 08:30:00', 1, N'Sốt, sốt nhẹ', N'Cảm cúm', N'Ghi chú A'),
+(2, 2, 2, '2025-01-11 09:00:00', 6, N'Ho khan, đau họng', N'Viêm họng', N'Ghi chú B'),
+(3, 3, 3, '2025-01-12 10:15:00', 3, N'Khó thở', N'Viêm phổi', N'Ghi chú C'),
+(4, 4, 4, '2025-01-13 11:00:00', 9, N'Đau bụng', N'Đau dạ dày', N'Ghi chú D'),
+(5, 5, 5, '2025-01-14 13:30:00', 4, N'Uống nhiều khát nước', N'Tiểu đường', N'Ghi chú E'),
+(6, 6, 6, '2025-01-15 14:00:00', 8, N'Ngứa da', N'Viêm da', N'Ghi chú F'),
+(7, 7, 7, '2025-01-16 15:45:00', 5, N'Đau đầu, choáng', N'Tăng huyết áp', N'Ghi chú G'),
+(8, 8, 8, '2025-01-17 16:30:00', 2, N'Sốt cao', N'Sốt xuất huyết', N'Ghi chú H'),
+(9, 9, 9, '2025-01-18 08:00:00', 10, N'Buồn nôn', N'Rối loạn tiêu hóa', N'Ghi chú I'),
+(10, 10, 10, '2025-01-19 09:30:00', 7, N'Đau răng', N'Sâu răng', N'Ghi chú J');
 
 
--- BẢNG KHO THUỐC
-CREATE TABLE KhoThuoc (
-    id INT PRIMARY KEY,
-    ten NVARCHAR(100) NOT NULL,
-    soluong INT NOT NULL,
-    hansudung DATE
-);
+-- 11) Bảng DonThuoc
 
-INSERT INTO KhoThuoc (id, ten, soluong, hansudung)
-VALUES
-(1, N'Paracetamol 500mg', 200, '2027-12-31'),
-(2, N'Amoxicillin 500mg', 150, '2026-09-30'),
-(3, N'Cefuroxime 250mg', 100, '2026-11-15'),
-(4, N'Vitamin C 500mg', 300, '2028-05-01'),
-(5, N'Omeprazole 20mg', 120, '2027-04-01'),
-(6, N'Găng tay y tế', 200, '2026-12-31'),
-(7, N'Khẩu trang y tế', 500, '2026-06-30'),
-(8, N'Cồn 70 độ', 100, '2027-01-01'),
-(9, N'Bông gạc vô trùng', 300, '2026-08-01'),
-(10, N'Băng dán y tế', 400, '2026-09-15');
-
-
--- BẢNG ĐƠN THUỐC
 CREATE TABLE DonThuoc (
-    id INT PRIMARY KEY,
-    id_benhnhan INT NOT NULL,
-    id_bacsi INT NOT NULL,
-    ngaylap DATE NOT NULL,
-    ghichu NVARCHAR(255),
-    FOREIGN KEY (id_benhnhan) REFERENCES BenhNhan(id),
-    FOREIGN KEY (id_bacsi) REFERENCES BacSi(id)
+    MaDon INT PRIMARY KEY IDENTITY(1,1),
+    MaHS INT NOT NULL REFERENCES HoSoKham(MaHS),
+    MaBS INT NOT NULL REFERENCES BacSi(MaBS),
+    NgayKeDon DATE NOT NULL,
+    GhiChu NVARCHAR(255) NULL
 );
 
-INSERT INTO DonThuoc (id, id_benhnhan, id_bacsi, ngaylap, ghichu)
-VALUES
-(1, 1, 3, '2025-10-25', N'Đau đầu nhẹ'),
-(2, 2, 2, '2025-10-25', N'Cảm cúm'),
-(3, 3, 1, '2025-10-26', N'Cao huyết áp'),
-(4, 4, 5, '2025-10-26', N'Sau sinh cần bổ sung vitamin'),
-(5, 5, 4, '2025-10-27', N'Chấn thương nhẹ'),
-(6, 6, 7, '2025-10-27', N'Đau mắt đỏ'),
-(7, 7, 6, '2025-10-28', N'Đau răng'),
-(8, 8, 8, '2025-10-28', N'Viêm họng'),
-(9, 9, 10, '2025-10-29', N'Mất ngủ kéo dài'),
-(10, 10, 9, '2025-10-30', N'Nổi mẩn dị ứng');
+
+INSERT INTO DonThuoc (MaHS, MaBS, NgayKeDon, GhiChu) VALUES
+(1,1,'2025-01-10',N'Đơn A'),
+(2,2,'2025-01-11',N'Đơn B'),
+(3,3,'2025-01-12',N'Đơn C'),
+(4,4,'2025-01-13',N'Đơn D'),
+(5,5,'2025-01-14',N'Đơn E'),
+(6,6,'2025-01-15',N'Đơn F'),
+(7,7,'2025-01-16',N'Đơn G'),
+(8,8,'2025-01-17',N'Đơn H'),
+(9,9,'2025-01-18',N'Đơn I'),
+(10,10,'2025-01-19',N'Đơn J');
 
 
--- CHI TIẾT ĐƠN THUỐC
+-- 12) Bảng ChiTietDonThuoc
+
 CREATE TABLE ChiTietDonThuoc (
-    id INT PRIMARY KEY,
-    id_donthuoc INT NOT NULL,
-    id_thuoc INT NOT NULL,
-    soluong INT NOT NULL,
-    lieudung NVARCHAR(100),
-    FOREIGN KEY (id_donthuoc) REFERENCES DonThuoc(id),
-    FOREIGN KEY (id_thuoc) REFERENCES KhoThuoc(id)
+    MaCTDT INT PRIMARY KEY IDENTITY(1,1),
+    MaDon INT NOT NULL REFERENCES DonThuoc(MaDon),
+    MaThuoc INT NOT NULL REFERENCES Thuoc(MaThuoc),
+    SoLuong INT NOT NULL CHECK (SoLuong > 0),
+    CachDung NVARCHAR(255) NULL,
+    DonGia DECIMAL(18,2) NOT NULL CHECK (DonGia >= 0),
+    ThanhTien AS (SoLuong * DonGia) PERSISTED
 );
 
-INSERT INTO ChiTietDonThuoc (id, id_donthuoc, id_thuoc, soluong, lieudung)
-VALUES
-(1, 1, 1, 10, N'Uống 2 viên/ngày sau ăn'),
-(2, 2, 2, 15, N'Uống 1 viên sáng, 1 viên tối'),
-(3, 3, 3, 20, N'Uống 1 viên sau bữa trưa'),
-(4, 4, 4, 10, N'Uống 1 viên mỗi ngày'),
-(5, 5, 5, 7, N'Uống sáng 1 viên'),
-(6, 6, 6, 2, N'Sử dụng khi cần'),
-(7, 7, 9, 5, N'Sát trùng vùng răng miệng'),
-(8, 8, 8, 1, N'Súc họng mỗi sáng'),
-(9, 9, 10, 3, N'Dán lên vùng bị ngứa'),
-(10, 10, 4, 10, N'Uống 1 viên sáng và tối');
 
--- TẠO CHỈ MỤC
-CREATE INDEX IX_LichHen_BenhNhan ON LichHen(id_benhnhan);
-CREATE INDEX IX_LichHen_BacSi ON LichHen(id_bacsi);
-CREATE INDEX IX_HoaDon_BenhNhan ON HoaDon(id_benhnhan);
-CREATE INDEX IX_DonThuoc_BenhNhan ON DonThuoc(id_benhnhan);
-CREATE INDEX IX_ChiTietDonThuoc_DonThuoc ON ChiTietDonThuoc(id_donthuoc);
+INSERT INTO ChiTietDonThuoc (MaDon, MaThuoc, SoLuong, CachDung, DonGia) VALUES
+(1,1,10,N'Uống sau ăn',2000),
+(1,5,2,N'Uống 1 viên',1500),
+(2,2,14,N'Uống sau ăn',5000),
+(3,3,7,N'Sáng 1 lần',8000),
+(4,4,8,N'Uống khi đau',3000),
+(5,6,10,N'Uống 1 lần',2500),
+(6,7,30,N'Uống 2 lần/ngày',6000),
+(7,8,20,N'Uống 1 lần',1000),
+(8,9,5,N'Pha uống',12000),
+(9,10,6,N'Pha uống',7000);
+
+
+-- 13) Bảng ChiTietDichVu
+
+CREATE TABLE ChiTietDichVu (
+    MaCTDV INT PRIMARY KEY IDENTITY(1,1),
+    MaHS INT NOT NULL REFERENCES HoSoKham(MaHS),
+    MaDV INT NOT NULL REFERENCES DichVu(MaDV),
+    SoLuong INT NOT NULL CHECK (SoLuong > 0),
+    DonGia DECIMAL(18,2) NOT NULL CHECK (DonGia >= 0),
+    ThanhTien AS (SoLuong * DonGia) PERSISTED
+);
+
+
+INSERT INTO ChiTietDichVu (MaHS, MaDV, SoLuong, DonGia) VALUES
+(1,2,1,30000),
+(2,1,1,50000),
+(3,5,1,120000),
+(4,3,1,200000),
+(5,6,1,300000),
+(6,4,1,150000),
+(7,10,1,180000),
+(8,8,1,40000),
+(9,9,1,35000),
+(10,7,1,250000);
+
+
+-- 14) Bảng HoaDon
+
+CREATE TABLE HoaDon (
+    MaHoaDon INT PRIMARY KEY IDENTITY(1,1),
+    MaHS INT NOT NULL REFERENCES HoSoKham(MaHS),
+    MaBN INT NOT NULL REFERENCES BenhNhan(MaBN),
+    NgayLap DATETIME NOT NULL,
+    TongTien DECIMAL(18,2) NOT NULL CHECK (TongTien >= 0),
+    MaBHYT NVARCHAR(20) NULL REFERENCES BaoHiemYTe(MaBHYT),
+    TyLeBHYT DECIMAL(5,2) NULL,
+    TienBNPhaiTra DECIMAL(18,2) NULL
+);
+
+
+INSERT INTO HoaDon (MaHS, MaBN, NgayLap, TongTien, MaBHYT, TyLeBHYT, TienBNPhaiTra) VALUES
+(1,1,'2025-01-10 09:00', 200000, NULL, NULL, 200000),
+(2,2,'2025-01-11 09:30', 170000, 'BHYT001', 80.00, 34000),
+(3,3,'2025-01-12 10:30', 500000, NULL, NULL, 500000),
+(4,4,'2025-01-13 11:30', 350000, NULL, NULL, 350000),
+(5,5,'2025-01-14 14:00', 420000, 'BHYT003', 90.00, 42000),
+(6,6,'2025-01-15 14:30', 150000, NULL, NULL, 150000),
+(7,7,'2025-01-16 15:50', 220000, NULL, NULL, 220000),
+(8,8,'2025-01-17 16:40', 410000, 'BHYT005', 95.00, 20500),
+(9,9,'2025-01-18 08:20', 130000, NULL, NULL, 130000),
+(10,10,'2025-01-19 10:00', 600000, 'BHYT002', 95.00, 30000);
+
+
+
+-- 15) Bảng ThanhToan
+
+CREATE TABLE ThanhToan (
+    MaThanhToan INT PRIMARY KEY IDENTITY(1,1),
+    MaHoaDon INT NOT NULL REFERENCES HoaDon(MaHoaDon),
+    NgayThanhToan DATETIME NOT NULL,
+    SoTien DECIMAL(18,2) NOT NULL CHECK (SoTien >= 0),
+    PhuongThuc NVARCHAR(50) NULL
+);
+
+
+INSERT INTO ThanhToan (MaHoaDon, NgayThanhToan, SoTien, PhuongThuc) VALUES
+(1,'2025-01-10 09:05',200000,N'Tiền mặt'),
+(2,'2025-01-11 09:40',34000,N'Tiền mặt'),
+(3,'2025-01-12 10:45',500000,N'Chuyển khoản'),
+(4,'2025-01-13 11:35',350000,N'Tiền mặt'),
+(5,'2025-01-14 14:10',42000,N'BHYT'),
+(6,'2025-01-15 14:45',150000,N'Tiền mặt'),
+(7,'2025-01-16 15:55',220000,N'Chuyển khoản'),
+(8,'2025-01-17 16:45',20500,N'BHYT'),
+(9,'2025-01-18 08:25',130000,N'Tiền mặt'),
+(10,'2025-01-19 10:10',30000,N'BHYT');
+
+
+
+-- vài hàm SELECT mẫu
+
+/*
+SELECT TOP 10 * FROM Khoa;
+SELECT TOP 10 * FROM BenhNhan;
+SELECT TOP 10 * FROM BacSi;
+SELECT TOP 10 * FROM Thuoc;
+SELECT TOP 10 * FROM HoSoKham;
+SELECT TOP 10 * FROM DonThuoc;
+SELECT TOP 10 * FROM ChiTietDonThuoc;
+SELECT TOP 10 * FROM ChiTietDichVu;
+SELECT TOP 10 * FROM HoaDon;
+*/
