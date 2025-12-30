@@ -1,0 +1,7 @@
+CREATE NONCLUSTERED INDEX IX_DonThuoc_MaHS
+ON DonThuoc(MaHS);
+GO
+
+CREATE NONCLUSTERED INDEX IX_DonThuoc_NgayKeDon
+ON DonThuoc(NgayKeDon);
+GO

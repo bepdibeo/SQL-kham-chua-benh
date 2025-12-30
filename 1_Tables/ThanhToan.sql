@@ -1,0 +1,8 @@
+CREATE TABLE ThanhToan (
+    MaThanhToan INT PRIMARY KEY IDENTITY(1,1),
+    MaHoaDon INT NOT NULL REFERENCES HoaDon(MaHoaDon),
+    NgayThanhToan DATETIME NOT NULL,
+    SoTien DECIMAL(18,2) NOT NULL CHECK (SoTien >= 0),
+    PhuongThuc NVARCHAR(50) NULL
+);
+GO

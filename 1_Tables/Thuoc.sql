@@ -1,0 +1,9 @@
+CREATE TABLE Thuoc (
+    MaThuoc INT PRIMARY KEY IDENTITY(1,1),
+    TenThuoc NVARCHAR(150) NOT NULL,
+    DonViTinh NVARCHAR(50),
+    DonGia DECIMAL(18,2) NOT NULL CHECK (DonGia >= 0),
+    SoLuongTon INT NOT NULL CHECK (SoLuongTon >= 0),
+    XuatXu NVARCHAR(100) NULL
+);
+GO

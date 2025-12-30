@@ -1,0 +1,7 @@
+CREATE TABLE PhongKham (
+    MaPhong INT PRIMARY KEY IDENTITY(1,1),
+    TenPhong NVARCHAR(100) NOT NULL,
+    MaKhoa INT NOT NULL REFERENCES Khoa(MaKhoa),
+    ViTri NVARCHAR(100) NULL
+);
+GO

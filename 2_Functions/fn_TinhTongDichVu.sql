@@ -1,0 +1,13 @@
+CREATE OR ALTER FUNCTION fn_TinhTongDichVu (@MaHS INT)
+RETURNS DECIMAL(18,2)
+AS
+BEGIN
+    DECLARE @TongDV DECIMAL(18,2);
+
+    SELECT @TongDV = SUM(ThanhTien)
+    FROM ChiTietDichVu
+    WHERE MaHS = @MaHS;
+
+    RETURN ISNULL(@TongDV, 0);
+END;
+GO

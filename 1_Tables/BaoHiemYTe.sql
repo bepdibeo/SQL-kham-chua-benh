@@ -1,0 +1,9 @@
+CREATE TABLE BaoHiemYTe (
+    MaBHYT NVARCHAR(20) PRIMARY KEY,
+    TenBHYT NVARCHAR(150),
+    TyLeBHYT DECIMAL(5,2) CHECK (TyLeBHYT >= 0 AND TyLeBHYT <= 100),
+    NgayCap DATE NULL,
+    NgayHetHan DATE NULL,
+    CONSTRAINT CK_BaoHiemYTe_NgayHetHan CHECK (NgayHetHan >= NgayCap)
+);
+GO

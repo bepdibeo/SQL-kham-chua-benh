@@ -1,0 +1,2 @@
+USE QuanLyKhamChuaBenh;
+GO
