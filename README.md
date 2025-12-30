@@ -46,6 +46,7 @@ File `RunAll.sql` sẽ tự động:
 * Tạo procedure
 * Tạo trigger
 * Tạo view
+* Chèn dữ liệu mẫu
 * Tạo index
 ---
 
