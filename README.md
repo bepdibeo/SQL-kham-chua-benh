@@ -3,7 +3,7 @@ Bao gồm 15 bảng: Khoa, PhongKham, BacSi, BenhNhan, Benh, LichKham, Thuoc, Do
 ---
 
 ## 1. Giới thiệu
-Dự án là hệ thống cơ sở dữ liệu phục vụ cho hoạt động quản lý tại cơ sở y tế (phòng khám / bệnh viện), bao gồm:
+Dự án là hệ thống cơ sở dữ liệu phục vụ cho hoạt động quản lý tại cơ sở y tế (phòng khám / bệnh viện), gồm:
 * Quản lý bệnh nhân, bác sĩ, hồ sơ khám
 * Quản lý đơn thuốc, thuốc, dịch vụ y tế
 * Quản lý bảo hiểm y tế (BHYT)
@@ -71,4 +71,4 @@ TienBNPhaiTra = TongTien * (100 - TyLeBHYT) / 100
 ### Quản lý lịch khám
 
 * Không cho phép bác sĩ có 2 lịch trùng giờ bằng trigger
-* Procedure đặt lịch & cập nhật trạng thái
+* Procedure đặt lịch và cập nhật trạng thái
